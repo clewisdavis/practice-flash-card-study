@@ -1,0 +1,118 @@
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#root {
+  isolation: isolate;
+}
+
+/* Existing styles */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas,
+    'Courier New', monospace;
+}
+
+/* Color Tokens */
+:root {
+  --color-primary-100: #ffebee;
+  --color-primary-200: #ffcdd2;
+  --color-primary-300: #ef9a9a;
+  --color-primary-400: #e57373;
+  --color-primary-500: #ef5350;
+
+  --color-secondary-100: #e8eaf6;
+  --color-secondary-200: #c5cae9;
+  --color-secondary-300: #9fa8da;
+  --color-secondary-400: #7986cb;
+  --color-secondary-500: #5c6bc0;
+
+  --color-accent-100: #fff8e1;
+  --color-accent-200: #ffecb3;
+  --color-accent-300: #ffe082;
+  --color-accent-400: #ffd54f;
+  --color-accent-500: #ffca28;
+
+  --color-success-100: #e8f5e9;
+  --color-success-200: #c8e6c9;
+  --color-success-300: #a5d6a7;
+  --color-success-400: #81c784;
+  --color-success-500: #66bb6a;
+
+  --color-warning-100: #fff3e0;
+  --color-warning-200: #ffe0b2;
+  --color-warning-300: #ffcc80;
+  --color-warning-400: #ffb74d;
+  --color-warning-500: #ffa726;
+
+  --color-error-100: #ffebee;
+  --color-error-200: #ffcdd2;
+  --color-error-300: #ef9a9a;
+  --color-error-400: #e57373;
+  --color-error-500: #ef5350;
+}
+
+/* App Styles */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.quiz-card {
+  display: flex;
+  width: 80%;
+  height: 400px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: var(--color-secondary-100);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
