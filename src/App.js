@@ -51,7 +51,39 @@ export default App;
 function Quiz() {
   return (
     <div className="quiz-card">
-      <h2>What is the supreme law of the land?</h2>
+      <div>
+        <h2>What is the supreme law of the land?</h2>
+      </div>
+      <ul className="answers">
+        <li>
+          <span>The Constitution</span>
+          <span>✅</span>
+        </li>
+        <li>
+          <span>The Declaration of Independence</span>
+          <span>❌</span>
+        </li>
+        <li>
+          <span>The Articles of Confederation</span>
+          <span>❌</span>
+        </li>
+        <li>
+          <span>The Bill of Rights</span>
+          <span>❌</span>
+        </li>
+        <li>
+          <span>All of the above</span>
+          <span>✅</span>
+        </li>
+      </ul>
+
+      <div>
+        <button>Hint 🧐</button>
+        <p>
+          The government does a lot of things for the people
+          of the United States.
+        </p>
+      </div>
     </div>
   );
 }

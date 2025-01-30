@@ -97,6 +97,10 @@ code {
 
 /* App Styles */
 
+h1 {
+  margin-bottom: 32px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -107,12 +111,45 @@ code {
 
 .quiz-card {
   display: flex;
+  flex-direction: column;
   width: 80%;
-  height: 400px;
-  justify-content: center;
-  align-items: flex-start;
+  /* height: 400px; */
+  /* justify-content: center;
+  align-items: flex-start; */
+  gap: 16px;
   padding: 20px;
   background-color: var(--color-secondary-100);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin: 16px;
+}
+
+.quiz-card ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.answers li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: var(--color-secondary-200);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.answers li:hover {
+  background-color: var(--color-secondary-300);
 }
