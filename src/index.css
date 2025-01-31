@@ -97,6 +97,14 @@ code {
 
 /* App Styles */
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px;
+  background-color: var(--color-secondary-100);
+}
+
 h1 {
   margin-bottom: 32px;
 }
@@ -106,7 +114,8 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  margin: 32px 0;
+  /* height: 100vh; */
 }
 
 .quiz-card {
@@ -152,4 +161,50 @@ h2 {
 
 .answers li:hover {
   background-color: var(--color-secondary-300);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  width: auto;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button.primary {
+  background-color: var(--color-primary-500);
+  color: white;
+}
+
+button.primary:hover {
+  background-color: var(--color-primary-400);
+}
+
+button.secondary {
+  background-color: var(--color-secondary-500);
+  color: white;
+}
+
+button.secondary:hover {
+  background-color: var(--color-secondary-400);
+}
+
+button.link {
+  background: none;
+  color: var(--color-primary-500);
+  text-decoration: underline;
+  padding: 0;
+  font-size: 16px;
+}
+
+button.link:hover {
+  color: var(--color-primary-400);
 }

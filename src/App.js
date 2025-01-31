@@ -38,14 +38,27 @@ function App() {
   ];
 
   return (
+    <>
+    <Header />
     <div className="container">
-      <h1>Hello, Welcome to Quiz Time 🧐</h1>
       <Quiz />
     </div>
+    <Actions />
+    </>
   );
 }
 
-export default App; 
+export default App
+
+function Header() {
+  return (
+    <div className="header">
+      <p>Quiz Time 🧐</p>
+      <p>Score: 0</p>
+      <p>Welcome, Chris</p>
+    </div>
+  );
+}
 
 
 function Quiz() {
@@ -84,6 +97,16 @@ function Quiz() {
           of the United States.
         </p>
       </div>
+    </div>
+  );
+}
+
+function Actions() {
+  return (
+    <div className="actions">
+      <button>Skip</button>
+      <button>Reset</button>
+      <button>Next Question</button>
     </div>
   );
 }
