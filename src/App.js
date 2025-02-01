@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 // Flash Card App
 // functionality
 // Show a question
@@ -14,7 +16,7 @@
 function App() {
 
   // quiz questions and answers
-  const questions = [
+  const [questions] = useState([
     {
       question: 'What is the supreme law of the land?',
       options: [
@@ -24,6 +26,7 @@ function App() {
         'The Bill of Rights',
       ],
       answer: 'The Constitution',
+      points: 1,
     },
     {
       question: 'What does the Constitution do?',
@@ -34,14 +37,15 @@ function App() {
         'All of the above',
       ],
       answer: 'All of the above',
+      points: 1,
     },
-  ];
+  ]);
 
   return (
     <>
     <Header />
     <div className="container">
-      <Quiz />
+      <Quiz questions={questions} />
     </div>
     <Actions />
     </>
@@ -61,35 +65,39 @@ function Header() {
 }
 
 
-function Quiz() {
+function Quiz({ questions }) {
+  const [currentQuestionIndex, setCurrentQuestionIndex] =
+    useState(0);
+
+  const handleNextQuestion = () => {
+    setCurrentQuestionIndex(
+      (prevIndex) => (prevIndex + 1) % questions.length
+    );
+  };
+
+  const currentQuestion = questions[currentQuestionIndex];
+
   return (
     <div className="quiz-card">
       <div>
-        <h2>What is the supreme law of the land?</h2>
+        <h2>{currentQuestion.question}</h2>
       </div>
       <ul className="answers">
-        <li>
-          <span>The Constitution</span>
-          <span>✅</span>
-        </li>
-        <li>
-          <span>The Declaration of Independence</span>
-          <span>❌</span>
-        </li>
-        <li>
-          <span>The Articles of Confederation</span>
-          <span>❌</span>
-        </li>
-        <li>
-          <span>The Bill of Rights</span>
-          <span>❌</span>
-        </li>
-        <li>
-          <span>All of the above</span>
-          <span>✅</span>
-        </li>
+        {currentQuestion.options.map((option, idx) => (
+          <li key={idx}>
+            <span>{option}</span>
+          </li>
+        ))}
       </ul>
+      <button onClick={handleNextQuestion}>
+        Next Question
+      </button>
+    </div>
+  );
+}
 
+function Hint() {
+  return (
       <div>
         <button>Hint 🧐</button>
         <p>
@@ -97,7 +105,6 @@ function Quiz() {
           of the United States.
         </p>
       </div>
-    </div>
   );
 }
 
