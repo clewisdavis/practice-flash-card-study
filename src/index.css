@@ -151,7 +151,8 @@ h2 {
 .answers li {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 8px;
   padding: 16px;
   background-color: var(--color-secondary-200);
   border-radius: 4px;

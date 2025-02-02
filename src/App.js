@@ -69,9 +69,21 @@ function Quiz({ questions }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] =
     useState(0);
 
+  const [selectedOptions, setSelectedOptions] = useState([]);
+
   const handleNextQuestion = () => {
     setCurrentQuestionIndex(
       (prevIndex) => (prevIndex + 1) % questions.length
+    );
+  };
+
+  const handleOptionChange = (option) => {
+    setSelectedOptions((prevSelectedOptions) =>
+      prevSelectedOptions.includes(option)
+        ? prevSelectedOptions.filter(
+            (selectedOption) => selectedOption !== option
+          )
+        : [...prevSelectedOptions, option]
     );
   };
 
@@ -85,6 +97,11 @@ function Quiz({ questions }) {
       <ul className="answers">
         {currentQuestion.options.map((option, idx) => (
           <li key={idx}>
+            <input 
+              type='checkbox' 
+              checked={selectedOptions.includes(option)}
+              onChange={() => handleOptionChange(option)}
+            />
             <span>{option}</span>
           </li>
         ))}
