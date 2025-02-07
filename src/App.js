@@ -68,8 +68,8 @@ function Header() {
 function Quiz({ questions }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] =
     useState(0);
-
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [isCorrect, setIsCorrect] = useState(null);
 
   const handleNextQuestion = () => {
     setCurrentQuestionIndex(
@@ -87,6 +87,12 @@ function Quiz({ questions }) {
     );
   };
 
+  const checkAnswer = () => {
+    const currentQuestion = questions[currentQuestionIndex];
+    const isAnswerCorrect = selectedOptions.length === 1 && selectedOptions[0] === currentQuestion.answer;
+    setIsCorrect(isAnswerCorrect);
+  }
+
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
@@ -97,8 +103,8 @@ function Quiz({ questions }) {
       <ul className="answers">
         {currentQuestion.options.map((option, idx) => (
           <li key={idx}>
-            <input 
-              type='checkbox' 
+            <input
+              type="checkbox"
               checked={selectedOptions.includes(option)}
               onChange={() => handleOptionChange(option)}
             />
@@ -106,8 +112,15 @@ function Quiz({ questions }) {
           </li>
         ))}
       </ul>
+      <button onClick={checkAnswer}>
+        {' '}
+        🧐 Check Answer
+      </button>
+      {isCorrect !== null && (
+        <p>{isCorrect ? 'Correct! ✅' : 'Incorrect! ❌'}</p>
+      )}
       <button onClick={handleNextQuestion}>
-        Next Question
+        ➡️ Next Question
       </button>
     </div>
   );
@@ -130,7 +143,7 @@ function Actions() {
     <div className="actions">
       <button>Skip</button>
       <button>Reset</button>
-      <button>Next Question</button>
+      {/* <button>➡️ Next Question</button> */}
     </div>
   );
 }
