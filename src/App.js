@@ -47,7 +47,6 @@ function App() {
     <div className="container">
       <Quiz questions={questions} />
     </div>
-    <Actions />
     </>
   );
 }
@@ -70,6 +69,7 @@ function Quiz({ questions }) {
     useState(0);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isCorrect, setIsCorrect] = useState(null);
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
 
   const handleNextQuestion = () => {
     setCurrentQuestionIndex(
@@ -91,6 +91,14 @@ function Quiz({ questions }) {
     const currentQuestion = questions[currentQuestionIndex];
     const isAnswerCorrect = selectedOptions.length === 1 && selectedOptions[0] === currentQuestion.answer;
     setIsCorrect(isAnswerCorrect);
+    setShowCorrectAnswer(!isAnswerCorrect);
+  }
+
+  const handleReset = () => {
+    setCurrentQuestionIndex(0);
+    setSelectedOptions([]);
+    setIsCorrect(null);
+    setShowCorrectAnswer(false);
   }
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -103,12 +111,14 @@ function Quiz({ questions }) {
       <ul className="answers">
         {currentQuestion.options.map((option, idx) => (
           <li key={idx}>
-            <input
-              type="checkbox"
-              checked={selectedOptions.includes(option)}
-              onChange={() => handleOptionChange(option)}
-            />
-            <span>{option}</span>
+            <label>
+              <input
+                type="checkbox"
+                checked={selectedOptions.includes(option)}
+                onChange={() => handleOptionChange(option)}
+              />
+              <span>{' '}{option}</span>
+            </label>
           </li>
         ))}
       </ul>
@@ -117,11 +127,17 @@ function Quiz({ questions }) {
         🧐 Check Answer
       </button>
       {isCorrect !== null && (
-        <p>{isCorrect ? 'Correct! ✅' : 'Incorrect! ❌'}</p>
+        <p>{isCorrect ? 'Correct! ✅'  : 'Incorrect! ❌'}</p>
+      )}
+      {showCorrectAnswer && (
+        <p>
+          The correct answer is: {currentQuestion.answer}
+        </p>
       )}
       <button onClick={handleNextQuestion}>
         ➡️ Next Question
       </button>
+      <Actions onReset={handleReset} />
     </div>
   );
 }
@@ -138,11 +154,11 @@ function Hint() {
   );
 }
 
-function Actions() {
+function Actions({ onReset }) {
   return (
     <div className="actions">
-      <button>Skip</button>
-      <button>Reset</button>
+      {/* <button>Skip</button> */}
+      <button className='' onClick={onReset}>Reset</button>
       {/* <button>➡️ Next Question</button> */}
     </div>
   );
