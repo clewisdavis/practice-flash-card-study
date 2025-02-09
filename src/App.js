@@ -104,40 +104,72 @@ function Quiz({ questions }) {
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div className="quiz-card">
-      <div>
-        <h2>{currentQuestion.question}</h2>
+    <>
+      <div className="quiz-card">
+        <div>
+          <h2>{currentQuestion.question}</h2>
+        </div>
+        <ul className="answers">
+          {currentQuestion.options.map((option, idx) => (
+            <li key={idx}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={selectedOptions.includes(option)}
+                  onChange={() =>
+                    handleOptionChange(option)
+                  }
+                />
+                <span> {option}</span>
+              </label>
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul className="answers">
-        {currentQuestion.options.map((option, idx) => (
-          <li key={idx}>
-            <label>
-              <input
-                type="checkbox"
-                checked={selectedOptions.includes(option)}
-                onChange={() => handleOptionChange(option)}
-              />
-              <span>{' '}{option}</span>
-            </label>
-          </li>
-        ))}
-      </ul>
-      <button onClick={checkAnswer}>
-        {' '}
-        🧐 Check Answer
-      </button>
+
+      <Actions
+        onReset={handleReset}
+        checkAnswer={checkAnswer}
+        isCorrect={isCorrect}
+        showCorrectAnswer={showCorrectAnswer}
+        currentQuestion={currentQuestion}
+        handleNextQuestion={handleNextQuestion}
+      />
+    </>
+  );
+}
+
+
+function Actions({
+  onReset,
+  checkAnswer,
+  isCorrect,
+  showCorrectAnswer,
+  currentQuestion,
+  handleNextQuestion,
+}) {
+  return (
+    <div className="actions">
+      <button onClick={checkAnswer}>🧐 Check Answer</button>
+
       {isCorrect !== null && (
-        <p>{isCorrect ? 'Correct! ✅'  : 'Incorrect! ❌'}</p>
+        <p>{isCorrect ? 'Correct! ✅' : 'Incorrect! ❌'}</p>
       )}
+
       {showCorrectAnswer && (
         <p>
           The correct answer is: {currentQuestion.answer}
         </p>
       )}
+
+      <button className="" onClick={onReset}>
+        Reset
+      </button>
+
       <button onClick={handleNextQuestion}>
         ➡️ Next Question
       </button>
-      <Actions onReset={handleReset} />
+
     </div>
   );
 }
@@ -151,15 +183,5 @@ function Hint() {
           of the United States.
         </p>
       </div>
-  );
-}
-
-function Actions({ onReset }) {
-  return (
-    <div className="actions">
-      {/* <button>Skip</button> */}
-      <button className='' onClick={onReset}>Reset</button>
-      {/* <button>➡️ Next Question</button> */}
-    </div>
   );
 }
