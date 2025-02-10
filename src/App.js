@@ -113,14 +113,24 @@ function Quiz({ questions }) {
           {currentQuestion.options.map((option, idx) => (
             <li key={idx}>
               <label>
-                <input
-                  type="checkbox"
-                  checked={selectedOptions.includes(option)}
-                  onChange={() =>
-                    handleOptionChange(option)
-                  }
-                />
-                <span> {option}</span>
+                <span>
+                  <input
+                    type="checkbox"
+                    checked={selectedOptions.includes(option)}
+                    onChange={() =>
+                      handleOptionChange(option)
+                    }
+                  />
+                  <span> {option}</span>
+                </span>
+                {selectedOptions.includes(option) &&
+                  isCorrect !== null && (
+                    <p>
+                      {isCorrect
+                        ? '✅ Correct! '
+                        : '❌ Incorrect!'}
+                    </p>
+                  )}
               </label>
             </li>
           ))}

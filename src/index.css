@@ -184,12 +184,23 @@ button {
 
 .answers li label {
   display: flex;
+  width: 100%;
   align-items: center;
+  justify-content: space-between;
   cursor: pointer;
 }
 
 .answers li input[type='checkbox'] {
   margin-right: 8px;
+  display: flex;
+}
+
+.answers li span {
+  display: flex;
+}
+
+.answers li p {
+  display: flex;
 }
 
 .answers li input[type='checkbox']:focus + span {
