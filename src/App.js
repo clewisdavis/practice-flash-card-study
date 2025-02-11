@@ -67,7 +67,7 @@ function Header() {
 function Quiz({ questions }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] =
     useState(0);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
 
@@ -75,31 +75,29 @@ function Quiz({ questions }) {
     setCurrentQuestionIndex(
       (prevIndex) => (prevIndex + 1) % questions.length
     );
+    setSelectedOption(null); // Reset selected option for the next question
+    setIsCorrect(null); // Reset the correctness state for the next question
+    setShowCorrectAnswer(false); // Hide the correct answer for the next question
   };
 
   const handleOptionChange = (option) => {
-    setSelectedOptions((prevSelectedOptions) =>
-      prevSelectedOptions.includes(option)
-        ? prevSelectedOptions.filter(
-            (selectedOption) => selectedOption !== option
-          )
-        : [...prevSelectedOptions, option]
-    );
+    setSelectedOption(option);
   };
 
   const checkAnswer = () => {
     const currentQuestion = questions[currentQuestionIndex];
-    const isAnswerCorrect = selectedOptions.length === 1 && selectedOptions[0] === currentQuestion.answer;
+    const isAnswerCorrect =
+      selectedOption === currentQuestion.answer;
     setIsCorrect(isAnswerCorrect);
-    setShowCorrectAnswer(!isAnswerCorrect);
-  }
+    setShowCorrectAnswer(!isAnswerCorrect); // Show the correct answer only if the answer is incorrect
+  };
 
   const handleReset = () => {
     setCurrentQuestionIndex(0);
-    setSelectedOptions([]);
+    setSelectedOption(null);
     setIsCorrect(null);
     setShowCorrectAnswer(false);
-  }
+  };
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -116,18 +114,18 @@ function Quiz({ questions }) {
                 <span>
                   <input
                     type="checkbox"
-                    checked={selectedOptions.includes(option)}
+                    checked={selectedOption === option}
                     onChange={() =>
                       handleOptionChange(option)
                     }
                   />
                   <span> {option}</span>
                 </span>
-                {selectedOptions.includes(option) &&
+                {selectedOption === option &&
                   isCorrect !== null && (
                     <p>
                       {isCorrect
-                        ? '✅ Correct! '
+                        ? '✅ Correct!'
                         : '❌ Incorrect!'}
                     </p>
                   )}
@@ -161,16 +159,6 @@ function Actions({
   return (
     <div className="actions">
       <button onClick={checkAnswer}>🧐 Check Answer</button>
-
-      {isCorrect !== null && (
-        <p>{isCorrect ? 'Correct! ✅' : 'Incorrect! ❌'}</p>
-      )}
-
-      {showCorrectAnswer && (
-        <p>
-          The correct answer is: {currentQuestion.answer}
-        </p>
-      )}
 
       <button className="" onClick={onReset}>
         Reset
