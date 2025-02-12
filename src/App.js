@@ -65,8 +65,7 @@ function Header() {
 
 
 function Quiz({ questions }) {
-  const [currentQuestionIndex, setCurrentQuestionIndex] =
-    useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
@@ -82,12 +81,13 @@ function Quiz({ questions }) {
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
+    setIsCorrect(null);
+    setShowCorrectAnswer(false);
   };
 
   const checkAnswer = () => {
     const currentQuestion = questions[currentQuestionIndex];
-    const isAnswerCorrect =
-      selectedOption === currentQuestion.answer;
+    const isAnswerCorrect = selectedOption === currentQuestion.answer;
     setIsCorrect(isAnswerCorrect);
     setShowCorrectAnswer(!isAnswerCorrect); // Show the correct answer only if the answer is incorrect
   };
