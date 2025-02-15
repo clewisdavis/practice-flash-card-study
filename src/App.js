@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import questions from './questions';
 
 // Flash Card App
 // Show a question
@@ -15,128 +16,15 @@ import React, { useState } from 'react';
 
 function App() {
 
-  // quiz questions and answers
-  const [questions] = useState([
-    {
-      question: 'What is the supreme law of the land?',
-      options: [
-        'The Constitution',
-        'The Declaration of Independence',
-        'The Articles of Confederation',
-        'The Bill of Rights',
-      ],
-      answer: 'The Constitution',
-      points: 1,
-    },
-    {
-      question: 'What does the Constitution do?',
-      options: [
-        'Sets up the government',
-        'Defines the government',
-        'Protects basic rights of Americans',
-        'All of the above',
-      ],
-      answer: 'All of the above',
-      points: 1,
-    },
-    {
-      question:
-        'How many amendments does the Constitution have?',
-      options: ['10', '27', '33', '50'],
-      answer: '27',
-      points: 1,
-    },
-    {
-      question:
-        'What are the first ten amendments to the Constitution called?',
-      options: [
-        'The Preamble',
-        'The Bill of Rights',
-        'The Articles of Confederation',
-        'The Federalist Papers',
-      ],
-      answer: 'The Bill of Rights',
-      points: 1,
-    },
-    {
-      question:
-        'Who is known as the "Father of the Constitution"?',
-      options: [
-        'George Washington',
-        'Thomas Jefferson',
-        'James Madison',
-        'Alexander Hamilton',
-      ],
-      answer: 'James Madison',
-      points: 1,
-    },
-    {
-      question:
-        'What is the economic system in the United States?',
-      options: [
-        'Communism',
-        'Socialism',
-        'Capitalism',
-        'Feudalism',
-      ],
-      answer: 'Capitalism',
-      points: 1,
-    },
-    {
-      question:
-        'What is the highest court in the United States?',
-      options: [
-        'The Supreme Court',
-        'The Court of Appeals',
-        'The District Court',
-        'The Circuit Court',
-      ],
-      answer: 'The Supreme Court',
-      points: 1,
-    },
-    {
-      question:
-        'Who was the first President of the United States?',
-      options: [
-        'John Adams',
-        'Thomas Jefferson',
-        'Abraham Lincoln',
-        'George Washington',
-      ],
-      answer: 'George Washington',
-      points: 1,
-    },
-    {
-      question:
-        'What movement tried to end racial discrimination?',
-      options: [
-        'The Civil Rights Movement',
-        "The Women's Suffrage Movement",
-        'The Labor Movement',
-        'The Environmental Movement',
-      ],
-      answer: 'The Civil Rights Movement',
-      points: 1,
-    },
-    {
-      question:
-        'What did the Emancipation Proclamation do?',
-      options: [
-        'Freed the slaves',
-        'Ended the Civil War',
-        'Gave women the right to vote',
-        'Established the Constitution',
-      ],
-      answer: 'Freed the slaves',
-      points: 1,
-    },
-  ]);
+
+
+    const [score, setScore] = useState(0);
 
   return (
     <>
-    <Header />
+    <Header score={score} />
     <div className="container">
-      <Quiz questions={questions} />
+      <Quiz questions={questions} setScore={setScore} />
     </div>
     </>
   );
@@ -144,18 +32,18 @@ function App() {
 
 export default App
 
-function Header() {
+function Header({ score }) {
   return (
     <div className="header">
       <p>Quiz Time 🧐</p>
-      <p>Score: 0</p>
+      <p>Score: {score}</p>
       <p>Welcome, Chris</p>
     </div>
   );
 }
 
 
-function Quiz({ questions }) {
+function Quiz({ questions, setScore }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
@@ -183,6 +71,12 @@ function Quiz({ questions }) {
     const isAnswerCorrect = selectedOption === currentQuestion.answer;
     setIsCorrect(isAnswerCorrect);
     setShowCorrectAnswer(!isAnswerCorrect); // Show the correct answer only if the answer is incorrect
+
+    if (isAnswerCorrect) {
+      setScore((prevScore) => prevScore + 1);
+    } else {
+      setScore((prevScore) => prevScore - 1);
+    }
   };
 
   const handleReset = () => {
@@ -190,6 +84,7 @@ function Quiz({ questions }) {
     setSelectedOption(null);
     setIsCorrect(null);
     setShowCorrectAnswer(false);
+    setScore(0);
   };
 
   const currentQuestion = questions[currentQuestionIndex];
