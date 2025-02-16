@@ -16,9 +16,7 @@ import questions from './questions';
 
 function App() {
 
-
-
-    const [score, setScore] = useState(0);
+  const [score, setScore] = useState(0);
 
   return (
     <>
@@ -59,6 +57,17 @@ function Quiz({ questions, setScore }) {
     setIsCorrect(null); // Reset the correctness state for the next question
     setShowCorrectAnswer(false); // Hide the correct answer for the next question
   };
+
+  const handlePreviousQuestion = () => {
+    setCurrentQuestionIndex(
+      (prevIndex) =>
+        (prevIndex - 1 + questions.length) %
+        questions.length
+    );
+    setSelectedOption(null); // Reset selected option for the previous question
+    setIsCorrect(null); // Reset the correctness state for the previous question
+    setShowCorrectAnswer(false); // Hide the correct answer for the previous question
+  };  
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
@@ -127,6 +136,7 @@ function Quiz({ questions, setScore }) {
         onReset={handleReset}
         checkAnswer={checkAnswer}
         handleNextQuestion={handleNextQuestion}
+        handlePreviousQuestion={handlePreviousQuestion}
         currentQuestionIndex={currentQuestionIndex}
         numberOfQuestions={numberOfQuestions}
       />
@@ -139,6 +149,7 @@ function Actions({
   onReset,
   checkAnswer,
   handleNextQuestion,
+  handlePreviousQuestion,
   currentQuestionIndex,
   numberOfQuestions,
 }) {
@@ -149,6 +160,12 @@ function Actions({
       <button className="" onClick={onReset}>
         Reset
       </button>
+
+      <div>
+        <button onClick={handlePreviousQuestion}>
+          ⬅️ Previous Question
+        </button>
+      </div>
 
       <div>
         Question {currentQuestionIndex + 1} of{' '}
