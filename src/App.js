@@ -13,6 +13,7 @@ import questions from './questions';
 // Reset quiz
 // Design is friendly and intuitive for kids
 // Display the number of questions, 1 of 10, and update as user goes through the quiz
+// Sumbmit the quiz and display a summary of the quiz, correct and incorrect, and total points
 
 function App() {
 
@@ -188,5 +189,17 @@ function Hint() {
           of the United States.
         </p>
       </div>
+  );
+}
+
+
+function Summary() {
+  return (
+    <div>
+      <p>Summary</p>
+      <p>Total Score: 50</p>
+      <p>Correct Answers: 5</p>
+      <p>Incorrect Answers: 5</p>
+    </div>
   );
 }
